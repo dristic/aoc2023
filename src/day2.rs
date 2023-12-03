@@ -1,4 +1,4 @@
-use std::{fs, path::Path, collections::HashMap};
+use std::{collections::HashMap, fs, path::Path};
 
 use regex::Regex;
 
@@ -105,18 +105,11 @@ pub fn solve() -> anyhow::Result<()> {
             })
             .collect::<Vec<Round>>();
 
-        games.push(Game {
-            num,
-            rounds,
-        });
+        games.push(Game { num, rounds });
     }
 
     // Part one.
-    let max = vec![
-        (Color::Blue, 14),
-        (Color::Red, 12),
-        (Color::Green, 13),
-    ];
+    let max = vec![(Color::Blue, 14), (Color::Red, 12), (Color::Green, 13)];
 
     let mut answer = 0;
     for game in &games {
