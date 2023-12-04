@@ -1,4 +1,7 @@
-use std::{fs, collections::{HashMap, HashSet}};
+use std::{
+    collections::{HashMap, HashSet},
+    fs,
+};
 
 use crate::map::Map;
 
@@ -23,8 +26,8 @@ pub fn solve() -> anyhow::Result<()> {
                 if c.is_numeric() {
                     buf.push(c);
 
-                    for y in row-1..=row+1 {
-                        for x in col-1..=col+1 {
+                    for y in row - 1..=row + 1 {
+                        for x in col - 1..=col + 1 {
                             if let Some(adj) = map.get_xy(x, y) {
                                 if !adj.is_numeric() && adj != '.' {
                                     is_adjacent = true;
@@ -37,7 +40,7 @@ pub fn solve() -> anyhow::Result<()> {
                         }
                     }
                 }
-                
+
                 // If we have a saved value and are either at a non-numeric char
                 // or are at the end of the column.
                 if buf.len() > 0 && (!c.is_numeric() || col == map.width as i32 - 1) {
@@ -66,13 +69,10 @@ pub fn solve() -> anyhow::Result<()> {
     println!("Part 1 {}", part1);
 
     // Part 2
-    let part2: u32 = gears.into_iter().map(|(_, v)| {
-        if v.len() == 2 {
-            v[0] * v[1]
-        } else {
-            0
-        }
-    }).sum();
+    let part2: u32 = gears
+        .into_iter()
+        .map(|(_, v)| if v.len() == 2 { v[0] * v[1] } else { 0 })
+        .sum();
 
     println!("Part 2 {}", part2);
 
