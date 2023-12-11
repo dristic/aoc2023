@@ -10,7 +10,7 @@ type Pos = (i32, i32);
 pub fn solve() -> anyhow::Result<()> {
     let input = fs::read_to_string("input/day3.txt")?;
 
-    let map = Map::from_str(&input);
+    let map: Map<char> = Map::from_str(&input);
 
     let mut part1 = 0;
 
@@ -24,15 +24,15 @@ pub fn solve() -> anyhow::Result<()> {
         for col in 0..map.width as i32 {
             if let Some(c) = map.get_xy(col, row) {
                 if c.is_numeric() {
-                    buf.push(c);
+                    buf.push(c.to_owned());
 
                     for y in row - 1..=row + 1 {
                         for x in col - 1..=col + 1 {
                             if let Some(adj) = map.get_xy(x, y) {
-                                if !adj.is_numeric() && adj != '.' {
+                                if !adj.is_numeric() && *adj != '.' {
                                     is_adjacent = true;
 
-                                    if adj == '*' {
+                                    if *adj == '*' {
                                         adj_gears.insert((x, y));
                                     }
                                 }
