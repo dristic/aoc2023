@@ -19,7 +19,7 @@ pub fn solve() -> anyhow::Result<()> {
         loop {
             for (i, n) in cur.iter().enumerate() {
                 if i < cur.len() - 1 {
-                    let n2 = cur[i+1];
+                    let n2 = cur[i + 1];
                     next.push(n2 - n);
                 }
             }
@@ -38,7 +38,7 @@ pub fn solve() -> anyhow::Result<()> {
 
         back.reverse();
         let mut backward = 0;
-        for (i, n) in back.iter().enumerate() {
+        for (_, n) in back.iter().enumerate() {
             backward = n - backward;
         }
 

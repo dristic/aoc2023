@@ -1,4 +1,4 @@
-use std::{fs, collections::HashMap};
+use std::{collections::HashMap, fs};
 
 use enum_iterator::Sequence;
 
@@ -90,25 +90,23 @@ pub fn solve() -> anyhow::Result<()> {
         }
     }
 
-    let locations = seeds.iter().map(|seed| {
-        let mut loc = *seed;
+    let locations = seeds
+        .iter()
+        .map(|seed| {
+            let mut loc = *seed;
 
-        for val in enum_iterator::all::<Types>().filter(|t| !matches!(t, Types::None)) {
-            let new_val = maps
-                .get(&val)
-                .unwrap()
-                .iter()
-                .find_map(|r| r.convert(loc));
+            for val in enum_iterator::all::<Types>().filter(|t| !matches!(t, Types::None)) {
+                let new_val = maps.get(&val).unwrap().iter().find_map(|r| r.convert(loc));
 
-            match new_val {
-                Some(v) => loc = v,
-                None => {},
+                match new_val {
+                    Some(v) => loc = v,
+                    None => {}
+                }
             }
-        }
 
-        loc
-    })
-    .collect::<Vec<u64>>();
+            loc
+        })
+        .collect::<Vec<u64>>();
 
     println!("{:?}", locations);
 
@@ -130,15 +128,11 @@ pub fn solve() -> anyhow::Result<()> {
             let mut loc = n;
 
             for val in enum_iterator::all::<Types>().filter(|t| !matches!(t, Types::None)) {
-                let new_val = maps
-                    .get(&val)
-                    .unwrap()
-                    .iter()
-                    .find_map(|r| r.convert(loc));
+                let new_val = maps.get(&val).unwrap().iter().find_map(|r| r.convert(loc));
 
                 match new_val {
                     Some(v) => loc = v,
-                    None => {},
+                    None => {}
                 }
             }
 

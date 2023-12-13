@@ -1,14 +1,6 @@
-use std::env;
+use clap::Parser;
 
 mod day1;
-mod day2;
-mod day3;
-mod day4;
-mod day5;
-mod day6;
-mod day7;
-mod day8;
-mod day9;
 mod day10;
 mod day11;
 mod day12;
@@ -19,22 +11,41 @@ mod day16;
 mod day17;
 mod day18;
 mod day19;
+mod day2;
 mod day20;
 mod day21;
 mod day22;
 mod day23;
 mod day24;
 mod day25;
+mod day3;
+mod day4;
+mod day5;
+mod day6;
+mod day7;
+mod day8;
+mod day9;
 
 mod map;
+
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+pub struct Args {
+    #[arg(short, long, action)]
+    all: bool,
+
+    #[arg(short, long, action)]
+    example: bool,
+}
 
 fn main() -> anyhow::Result<()> {
     env_logger::init();
 
+    let args = Args::parse();
+
     println!("Starting...");
 
-    let args: Vec<String> = env::args().collect();
-    if args.len() > 1 && args[1] == "--all" {
+    if args.all {
         day1::solve()?;
         day2::solve()?;
         day3::solve()?;
@@ -62,7 +73,7 @@ fn main() -> anyhow::Result<()> {
         day25::solve()?;
     }
 
-    day12::solve()?;
+    day12::solve(&args)?;
 
     println!("Finished!");
 

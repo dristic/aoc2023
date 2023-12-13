@@ -114,9 +114,11 @@ pub fn solve() -> anyhow::Result<()> {
         }
     }
 
-    let part1 = dist.iter()
+    let part1 = dist
+        .iter()
         .map(|row| row.iter().max().unwrap())
-        .max().unwrap();
+        .max()
+        .unwrap();
 
     println!("Part one {}", part1);
 

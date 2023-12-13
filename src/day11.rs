@@ -7,7 +7,9 @@ pub fn solve() -> anyhow::Result<()> {
 
     let map: Map<char> = Map::from_str(&input);
 
-    let galaxies_orig = map.iter().enumerate()
+    let galaxies_orig = map
+        .iter()
+        .enumerate()
         .filter_map(|(i, c)| {
             if *c == '#' {
                 Some(map.get_loc(i))
@@ -50,15 +52,21 @@ pub fn solve() -> anyhow::Result<()> {
         let nx = x as i128;
         let ny = y as i128;
 
-        let dx = x_empty.iter().map(|x| if nx > *x as i128 { 999999 } else { 0 }).sum::<i128>();
-        let dy = y_empty.iter().map(|y| if ny > *y as i128 { 999999 } else { 0 }).sum::<i128>();
+        let dx = x_empty
+            .iter()
+            .map(|x| if nx > *x as i128 { 999999 } else { 0 })
+            .sum::<i128>();
+        let dy = y_empty
+            .iter()
+            .map(|y| if ny > *y as i128 { 999999 } else { 0 })
+            .sum::<i128>();
 
         galaxies.push((nx + dx, ny + dy));
     }
 
     let mut part1 = 0;
     for (i, (x1, y1)) in galaxies.iter().enumerate() {
-        for j in i+1..galaxies.len() {
+        for j in i + 1..galaxies.len() {
             let (x2, y2) = galaxies[j];
 
             let dist = (x2 - x1).abs() + (y2 - y1).abs();
