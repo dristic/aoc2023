@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 #[derive(Debug)]
 pub struct Map<T> {
     data: Vec<T>,
@@ -14,15 +16,30 @@ impl<T> IntoIterator for Map<T> {
     }
 }
 
+impl Display for Map<char> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        for y in 0..self.height {
+            let idx = y * self.width;
+            write!(
+                f,
+                "{}\n",
+                self.data[idx..idx + self.width].iter().collect::<String>()
+            )?;
+        }
+
+        Ok(())
+    }
+}
+
 impl<T> Map<T> {
     pub fn from_str(str: &str) -> Map<T>
     where
         T: From<char>,
     {
         let width = str.lines().next().unwrap().len();
-        let height = (str.len() / width) - 1;
+        let str = str.replace("\r\n", "").replace("\n", "");
+        let height = str.len() / width;
         let data = str
-            .replace("\r\n", "")
             .chars()
             .into_iter()
             .map(|c| T::from(c))
@@ -51,7 +68,7 @@ impl<T> Map<T> {
     }
 
     pub fn get_xy(&self, x: i32, y: i32) -> Option<&T> {
-        if x < 0 || y < 0 || x == self.width as i32 || y == self.height as i32 {
+        if x < 0 || y < 0 || x >= self.width as i32 || y >= self.height as i32 {
             return None;
         }
 
