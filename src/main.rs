@@ -59,8 +59,8 @@ fn main() -> anyhow::Result<()> {
         day11::solve()?;
         day12::solve(&args)?;
         day13::solve()?;
+        day14::solve()?;
 
-        day15::solve()?;
         day16::solve()?;
         day17::solve()?;
         day18::solve()?;
@@ -72,8 +72,8 @@ fn main() -> anyhow::Result<()> {
         day24::solve()?;
         day25::solve()?;
     }
-
-    day14::solve()?;
+    
+    day15::solve()?;
 
     println!("Finished!");
 

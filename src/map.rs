@@ -31,6 +31,16 @@ impl Display for Map<char> {
     }
 }
 
+impl Map<char> {
+    pub fn as_key(&self) -> String {
+        self.data.iter().collect::<String>()
+    }
+
+    pub fn replace(&mut self, data: &str) {
+        self.data = data.chars().collect::<Vec<char>>();
+    }
+}
+
 impl<T> Map<T> {
     pub fn from_str(str: &str) -> Map<T>
     where
@@ -63,8 +73,8 @@ impl<T> Map<T> {
         (x, y)
     }
 
-    fn index(&self, x: i32, y: i32) -> i32 {
-        (y * self.width as i32) + x
+    fn index(&self, x: i32, y: i32) -> usize {
+        (y as usize * self.width) + x as usize
     }
 
     pub fn get_xy(&self, x: i32, y: i32) -> Option<&T> {
@@ -74,10 +84,16 @@ impl<T> Map<T> {
 
         let index = self.index(x, y);
 
-        if index >= 0 && index < self.data.len() as i32 {
+        if index < self.data.len() {
             Some(&self.data[index as usize])
         } else {
             None
         }
+    }
+
+    pub fn swap(&mut self, x1: i32, y1: i32, x2: i32, y2: i32) {
+        let idx1 = self.index(x1, y1);
+        let idx2 = self.index(x2, y2);
+        self.data.swap(idx1, idx2);
     }
 }
