@@ -46,14 +46,17 @@ impl<T> Map<T> {
     where
         T: From<char>,
     {
+        Map::from_str_map(str, T::from)
+    }
+
+    pub fn from_str_map<F>(str: &str, f: F) -> Map<T>
+    where
+        F: FnMut(char) -> T,
+    {
         let width = str.lines().next().unwrap().len();
         let str = str.replace("\r\n", "").replace("\n", "");
         let height = str.len() / width;
-        let data = str
-            .chars()
-            .into_iter()
-            .map(|c| T::from(c))
-            .collect::<Vec<T>>();
+        let data = str.chars().into_iter().map(f).collect::<Vec<T>>();
 
         Map {
             width,

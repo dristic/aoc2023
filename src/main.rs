@@ -45,6 +45,8 @@ fn main() -> anyhow::Result<()> {
 
     println!("Starting...");
 
+    let suffix = if args.example { "ex.txt" } else { ".txt" };
+
     if args.all {
         day1::solve()?;
         day2::solve()?;
@@ -73,7 +75,7 @@ fn main() -> anyhow::Result<()> {
         day25::solve()?;
     }
 
-    day17::solve()?;
+    day17::solve(&suffix)?;
 
     println!("Finished!");
 
