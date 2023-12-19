@@ -15,10 +15,7 @@ fn hash(str: &str) -> usize {
 pub fn solve() -> anyhow::Result<()> {
     let input = fs::read_to_string("input/d15.txt")?;
 
-    let part1 = input
-        .split(",")
-        .map(hash)
-        .sum::<usize>();
+    let part1 = input.split(",").map(hash).sum::<usize>();
     println!("Part one {}", part1);
 
     let mut boxes: Vec<Vec<(String, u32)>> = vec![vec![(String::new(), 0); 0]; 256];
@@ -26,7 +23,7 @@ pub fn solve() -> anyhow::Result<()> {
         if let Some(idx) = ins.find('=') {
             let key = ins[0..idx].to_owned();
             let hash = hash(&key);
-            let val = ins[idx+1..].parse::<u32>().unwrap();
+            let val = ins[idx + 1..].parse::<u32>().unwrap();
 
             if let Some(idx) = boxes[hash].iter().position(|ins| ins.0.eq(&key)) {
                 boxes[hash][idx] = (key, val);
