@@ -1,4 +1,7 @@
-use std::{fs, collections::{VecDeque, HashMap}};
+use std::{
+    collections::{HashMap, VecDeque},
+    fs,
+};
 
 use crate::map::Map;
 
