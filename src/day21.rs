@@ -57,11 +57,20 @@ pub fn solve(suffix: &str) -> anyhow::Result<()> {
 
     println!("Part one {}", find_plots(&input, 64));
 
-    let max_width = 26501365 / 131;
-    let x1 = find_plots(&input, 65);
-    let x2 = find_plots(&input, 65 + 131);
-    let x3 = find_plots(&input, 65 + 131 + 131);
-    let part2 = x1 + x2 * max_width + (max_width * (max_width - 1) / 2) * ((x3 - x2) - (x2 - x1));
+    let x0 = find_plots(&input, 65);
+    let x1 = find_plots(&input, 65 + 131);
+    let x2 = find_plots(&input, 65 + 131 + 131);
+    
+    // Now solve the quadratic f(n) = an^2 + bn + c
+    // I followed https://github.com/terminalmage/adventofcode/blob/main/2023/day21.py
+    // TY terminalmage for the detailed explanation, I learned a lot here!
+    let c = x0;
+    let a = (x2 - (2 * x1) + x0) / 2;
+    let b = x1 - x0 - a;
+    let n: u64 = (26501365 - 65) / 131;
+
+    let part2 = (a * n.pow(2)) + (b * n) + c;
+
     println!("Part two {}", part2);
 
     Ok(())
