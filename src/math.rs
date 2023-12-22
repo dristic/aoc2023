@@ -40,6 +40,11 @@ mod tests {
     }
 
     #[test]
+    fn test_gcd_2() {
+        assert_eq!(gcd(6, 5), 1);
+    }
+
+    #[test]
     fn test_lcm() {
         assert_eq!(lcm(&[150, 210]), 1050);
     }
