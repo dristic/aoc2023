@@ -27,6 +27,7 @@ mod day8;
 mod day9;
 
 mod map;
+mod math;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -66,8 +67,8 @@ fn main() -> anyhow::Result<()> {
         day16::solve()?;
         day17::solve(&suffix)?;
         day18::solve(&suffix)?;
+        day19::solve(&suffix)?;
 
-        day20::solve()?;
         day21::solve()?;
         day22::solve()?;
         day23::solve()?;
@@ -75,7 +76,7 @@ fn main() -> anyhow::Result<()> {
         day25::solve()?;
     }
 
-    day19::solve(&suffix)?;
+    day20::solve(&suffix)?;
 
     println!("Finished!");
 

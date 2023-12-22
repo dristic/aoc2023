@@ -179,7 +179,7 @@ pub fn solve(suffix: &str) -> anyhow::Result<()> {
                         '<' if rng.1 > val => {
                             new_range[idx].1 = val;
                             rng.0 = val;
-                        },
+                        }
                         '>' if rng.0 < val => {
                             new_range[idx].0 = val + 1;
                             rng.1 = val + 1;
@@ -196,15 +196,15 @@ pub fn solve(suffix: &str) -> anyhow::Result<()> {
                             queue.push((new_range, forward.to_owned()));
                         }
                     }
-                },
+                }
                 Response::Accept => {
                     //println!("Accept {} {:?}", rule.name, ranges);
                     valid.push(ranges);
-                },
+                }
                 Response::Reject => (),
                 Response::Forward(forward) => {
                     queue.push((ranges, forward.to_owned()));
-                },
+                }
             }
         }
     }
